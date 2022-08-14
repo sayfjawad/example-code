@@ -1,0 +1,21 @@
+defaultTasks 'hello'
+
+logger.info "START"
+
+apply {
+    logger.info "Closure applied!"
+}
+
+task ('hello').doLast {
+    logger.info ">>>>> Hello XXXXXXXXXXXXXXX"
+    logger.info ">>>>> ${project.buildFile}"
+    logger.info ">>>>> relative path ${relativePath(project.buildFile)}"
+}
+
+if (project.hasProperty('sayfRulez')) {
+    logger.info "property 'sayfRulez' exists and is: ${sayfRulez}"
+} else {
+    logger.info "property 'sayfRulez' not found!"
+}
+
+logger.info "END"
