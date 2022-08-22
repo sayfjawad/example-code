@@ -21,31 +21,20 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-        'Implementation-Version': version,
-        'Created-By': "MultiCode on: ${gradle.timestamp()}",
-        'Main-Class': 'nl.multicode.HelloWorld'
+        attributes(
+                'Built-By': System.properties['user.name'],
+                'Implementation-Version': version,
+                'Build-Timestamp': new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
+                'Created-By': "Gradle ${gradle.gradleVersion}",
+                'Build-Jdk': "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                'Build-OS': "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
+                'Main-Class': 'nl.multicode.HelloWorld'
+        )
+    }
+    baseName = "$project.name-all"
+    from {
+        project.configurations.runtimeClasspath.collect {
+            File file -> project.zipTree(file)
+        }
     }
 }
-
-defaultTasks 'hello'
-
-logger.info "START"
-
-apply {
-    logger.info "Closure applied!"
-}
-
-task('hello').doLast {
-    logger.info ">>>>> Hello XXXXXXXXXXXXXXX"
-    logger.info ">>>>> ${project.buildFile}"
-    logger.info ">>>>> relative path ${relativePath(project.buildFile)}"
-}
-
-if (project.hasProperty('sayfRulez')) {
-    logger.info "property 'sayfRulez' exists and is: ${sayfRulez}"
-} else {
-    logger.info "property 'sayfRulez' not found!"
-}
-
-logger.info "END"
