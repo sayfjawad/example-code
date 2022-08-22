@@ -1,3 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'nl.multicode'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+        'Implementation-Version': version,
+        'Created-By': "MultiCode on: ${gradle.timestamp()}",
+        'Main-Class': 'nl.multicode.HelloWorld'
+    }
+}
+
 defaultTasks 'hello'
 
 logger.info "START"
@@ -6,7 +36,7 @@ apply {
     logger.info "Closure applied!"
 }
 
-task ('hello').doLast {
+task('hello').doLast {
     logger.info ">>>>> Hello XXXXXXXXXXXXXXX"
     logger.info ">>>>> ${project.buildFile}"
     logger.info ">>>>> relative path ${relativePath(project.buildFile)}"
