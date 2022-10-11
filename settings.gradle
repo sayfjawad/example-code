@@ -1,0 +1,90 @@
+rootProject.name = 'example-code'
+include 'core'
+include 'generate'
+include 'spring'
+include 'package'
+
+dependencyResolutionManagement {
+    repositories {{
+            mavenLocal()
+            maven {
+                url "http://localhost:9090/repository/maven-releases/"
+                allowInsecureProtocol = true
+            }
+            mavenCentral()
+        }
+    }
+    versionCatalogs {
+
+        create("testLibs") {
+            version('junit', '5.9.0')
+            version('mockito', '4.8.0')
+            version('assertj', '3.23.1')
+            library('junit-api', 'org.junit.jupiter', 'junit-jupiter-api').versionRef('junit')
+            library('junit-engine', 'org.junit.jupiter', 'junit-jupiter-engine').versionRef('junit')
+            library('junit-params', 'org.junit.jupiter', 'junit-jupiter-params').versionRef('junit')
+            library('mockito-core', 'org.mockito', 'mockito-core').versionRef('mockito')
+            library('mockito-junit-jupiter', 'org.mockito', 'mockito-junit-jupiter').versionRef('mockito')
+            library('assertj-core', 'org.assertj', 'assertj-core').versionRef('assertj')
+            library('spring-test-starter', 'org.springframework.boot', 'spring-boot-starter-test').withoutVersion()
+
+            bundle('testbundle', [
+                    'junit-api',
+                    'junit-engine',
+                    'junit-params',
+                    'mockito-core',
+                    'mockito-junit-jupiter',
+                    'assertj-core'
+            ])
+        }
+
+        libs {
+
+            // alliander
+            version('log', '1.0.2')
+            version('utility', '3.2.4')
+
+            // base
+            version('lombok', '1.18.+')
+            version('spotbugs', '5.0.9')
+            version('avro-apache', '1.11.0')
+            library('lombok', 'org.projectlombok', 'lombok').versionRef('lombok')
+            library('avro', 'org.apache.avro', 'trevni-avro').versionRef('avro-apache')
+            library('spotbugs', 'com.github.spotbugs', 'spotbugs-annotations').versionRef('spotbugs')
+
+
+            // spring
+            version('spring-boot', '2.7.3')
+            library('spring-config-auto', 'org.springframework.boot', 'spring-boot-autoconfigure').versionRef('spring-boot')
+            library('spring-config', 'org.springframework.boot', 'spring-boot-configuration-processor').withoutVersion()
+            library('spring-actuator-starter', 'org.springframework.boot', 'spring-boot-starter-actuator').withoutVersion()
+            library('spring-hateoas-starter', 'org.springframework.boot', 'spring-boot-starter-hateoas').withoutVersion()
+            library('spring-validation-starter', 'org.springframework.boot', 'spring-boot-starter-validation').withoutVersion()
+            library('spring-web-starter', 'org.springframework.boot', 'spring-boot-starter-web').withoutVersion()
+
+            // kafka
+            version('spring-kafka', '2.8.5')
+            version('kafka-clients', '3.2.3')
+            library('spring-kafka', 'org.springframework.kafka', 'spring-kafka').versionRef('spring-kafka')
+            library('kafka-clients', 'org.apache.kafka', 'kafka-clients').versionRef('kafka-clients')
+
+            // plugins
+            version('avro', '1.3.0')
+            version('spring-dependency', '1.0.13')
+            version('jacoco', '0.47.0')
+            version('openapi', '6.0.1')
+
+            plugin('spring-boot', 'org.springframework.boot').versionRef('spring-boot')
+            plugin('avro', 'com.github.davidmc24.gradle.plugin.avro').versionRef('avro')
+            plugin('spring-dependency', 'io.spring.dependency-management').versionRef('spring-dependency')
+            plugin('jacoco', 'org.kordamp.gradle.jacoco').versionRef('jacoco')
+            plugin('openapi', 'org.openapi.generator').versionRef('openapi')
+            plugin('spotbugs', 'com.github.spotbugs').versionRef('spotbugs')
+        }
+    }
+}
+include 'core'
+include 'openapi'
+include 'spring'
+include 'package'
+
