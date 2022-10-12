@@ -3,6 +3,7 @@ include 'core'
 include 'generate'
 include 'spring'
 include 'package'
+include 'io'
 
 dependencyResolutionManagement {
     repositories {{
@@ -83,8 +84,5 @@ dependencyResolutionManagement {
         }
     }
 }
-include 'core'
-include 'openapi'
-include 'spring'
-include 'package'
+
 

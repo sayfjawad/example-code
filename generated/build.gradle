@@ -1,0 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:5.0.0"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'org.openapi.generator'
+
+group 'nl.multicode'
+version '0.0.1-SNAPSHOT'
