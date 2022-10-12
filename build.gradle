@@ -5,36 +5,16 @@ plugins {
 group = 'nl.multicode'
 version = '0.0.1-SNAPSHOT'
 
-sourceCompatibility = 11
-targetCompatibility = 11
-
+sourceCompatibility = 17
+targetCompatibility = 17
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
-}
-
-jar {
-    manifest {
-        attributes(
-                'Built-By': System.properties['user.name'],
-                'Implementation-Version': version,
-                'Build-Timestamp': new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
-                'Created-By': "Gradle ${gradle.gradleVersion}",
-                'Build-Jdk': "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
-                'Build-OS': "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
-                'Main-Class': 'nl.multicode.HelloWorld'
-        )
-    }
-    baseName = "$project.name-all"
-    from {
-        project.configurations.runtimeClasspath.collect {
-            File file -> project.zipTree(file)
-        }
-    }
+    implementation(":application")
+    implementation(":spring")
+    implementation(":core")
+    implementation(":generated")
 }
